@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using ConsoleTools;
@@ -9,6 +10,9 @@ namespace ConsoleMenuSampleApp
   {
     private static async Task Main(string[] args)
     {
+      var generatedMenu = MenuGenerator.Generate(new[] { Assembly.GetExecutingAssembly() });
+      generatedMenu.Show();
+      
       var commonConfig = new MenuConfig
       {
         Selector = "--> ",
@@ -77,6 +81,12 @@ namespace ConsoleMenuSampleApp
       Console.WriteLine("end delay");
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
+    }
+
+    [EntryPoint(name:"Generic action", path:"/First/Second/Third")]
+    private static void SomeGenericAction()
+    {
+      
     }
   }
 }
